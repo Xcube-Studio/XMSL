@@ -1,0 +1,33 @@
+Installing server to current directory
+MESSAGE: Data kindly mirrored by Forge at http://MinecraftForge.net/
+MESSAGE: Considering minecraft server jar
+MESSAGE: Downloading minecraft server version 1.12.2
+java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(Unknown Source)
+	at java.net.SocketInputStream.read(Unknown Source)
+	at java.net.SocketInputStream.read(Unknown Source)
+	at sun.security.ssl.InputRecord.readFully(Unknown Source)
+	at sun.security.ssl.InputRecord.readV3Record(Unknown Source)
+	at sun.security.ssl.InputRecord.read(Unknown Source)
+	at sun.security.ssl.SSLSocketImpl.readRecord(Unknown Source)
+	at sun.security.ssl.SSLSocketImpl.readDataRecord(Unknown Source)
+	at sun.security.ssl.AppInputStream.read(Unknown Source)
+	at java.io.BufferedInputStream.fill(Unknown Source)
+	at java.io.BufferedInputStream.read1(Unknown Source)
+	at java.io.BufferedInputStream.read(Unknown Source)
+	at sun.net.www.MeteredStream.read(Unknown Source)
+	at java.io.FilterInputStream.read(Unknown Source)
+	at sun.net.www.protocol.http.HttpURLConnection$HttpInputStream.read(Unknown Source)
+	at sun.net.www.protocol.http.HttpURLConnection$HttpInputStream.read(Unknown Source)
+	at com.google.common.io.ByteStreams.copy(ByteStreams.java:207)
+	at com.google.common.io.ByteSource.copyTo(ByteSource.java:204)
+	at com.google.common.io.Files.copy(Files.java:382)
+	at net.minecraftforge.installer.DownloadUtils.downloadFileEtag(DownloadUtils.java:174)
+	at net.minecraftforge.installer.ServerInstall.run(ServerInstall.java:53)
+	at net.minecraftforge.installer.InstallerAction.run(InstallerAction.java:43)
+	at net.minecraftforge.installer.SimpleInstaller.handleOptions(SimpleInstaller.java:72)
+	at net.minecraftforge.installer.SimpleInstaller.main(SimpleInstaller.java:47)
+Downloading minecraft server failed, invalid e-tag checksum.
+Try again, or manually place server jar to skip download.
+There was an error during server installation

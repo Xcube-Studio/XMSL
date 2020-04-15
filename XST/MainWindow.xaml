@@ -1,0 +1,175 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XST"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="XST.MainWindow"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="CanMinimize"
+        AllowsTransparency="True"
+        Title="MainWindow" Height="450" Width="800" MouseLeftButtonDown="Window_MouseLeftButtonDown" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ContextMenu x:Key="ContextMenu">
+            <MenuItem x:Name="DownloadVersion" Header="下载" Click="DownloadVersion_Click"/>
+            <MenuItem x:Name="SetUpVersion" Header="安装到运行目录" Click="SetUpServer"/>
+        </ContextMenu>
+    </Window.Resources>
+    <Window.Background>
+        <ImageBrush ImageSource="2020-03-19_17.38.37.png"/>
+    </Window.Background>
+    <Grid>
+        <GroupBox Style="{DynamicResource MaterialDesignGroupBox}" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="2">
+            <GroupBox.Header>
+                <TextBlock Text="XST" Foreground="White" Margin="20,0,2,0" >
+                    <TextBlock.ToolTip>
+                        <Button Content="开服器"/>
+                    </TextBlock.ToolTip></TextBlock>
+            </GroupBox.Header>
+            <Grid Height="399" VerticalAlignment="Top" Width="782" Background="#00000000">
+                <Grid x:Name="Page1" d:IsHidden="True">
+                    <TextBox x:Name="T1" HorizontalAlignment="Left" Height="323" Margin="10,38,0,0" TextWrapping="Wrap" Text="XST开服器&#xA; 一个小白开服器&#xA;By xuan2006 &amp; xingxing520" VerticalAlignment="Top" Width="762" Background="#19FFFFFF" Foreground="White" IsReadOnly="True" VerticalScrollBarVisibility="Auto" FontFamily="Microsoft YaHei UI Light"/>
+                    <Label Content="控制台" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Microsoft YaHei UI Light"/>
+                    <TextBox
+  x:Name="T2"
+  materialDesign:HintAssist.Hint="在此输入命令"
+  materialDesign:TextFieldAssist.HasClearButton="True"
+   Margin="10,366,97,8" Foreground="White" BorderBrush="White" Background="#19FFFFFF" Height="25" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True"/>
+                    <Button x:Name="Send"
+  Content="{materialDesign:PackIcon LessThanOrEqual}"
+  ToolTip="Icon" Margin="690,366,10,8" Height="Auto" Click="SendTo" IsEnabled="False" />
+                    <Button x:Name="Start"
+    Style="{StaticResource MaterialDesignRaisedButton}"
+    ToolTip="Resource name: MaterialDesignRaisedButton" Margin="699,4,11,372" Height="Auto" Click="StartServer" Content="开始" FontSize="12" FontFamily="Microsoft YaHei UI Light"/>
+                    <Button x:Name="Stop"
+            Style="{StaticResource MaterialDesignRaisedButton}"
+            ToolTip="Resource name: MaterialDesignRaisedButton" Margin="622,4,88,372" Height="Auto" Click="StopServer" Content="停止" FontSize="12" IsEnabled="False" FontFamily="Microsoft YaHei UI Light"/>
+                </Grid>
+                <Grid x:Name="Page2" d:IsHidden="True">
+                    <Label Content="下载服务端" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Microsoft YaHei UI Light"/>
+                    <ComboBox x:Name="ComboBox1" HorizontalAlignment="Right" Margin="0,6,306,0" VerticalAlignment="Top" Width="176" Foreground="White" BorderBrush="White" DropDownOpened="ComboBox1_DropDownOpened" DropDownClosed="ComboBox1_DropDownClosed" Background="#0CFFFFFF" FontFamily="Microsoft YaHei UI Light"/>
+                    <Label Content="服务端类型" HorizontalAlignment="Right" Margin="0,6,487,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Height="27" FontFamily="Microsoft YaHei UI Light"/>
+                    <Label Content="不知道这些服务端怎么用----&gt;" HorizontalAlignment="Right" Margin="0,4,91,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Height="27" FontFamily="Microsoft YaHei UI Light"/>
+                    <ListBox x:Name="List" HorizontalAlignment="Left" Height="347" Margin="10,42,0,0" VerticalAlignment="Top" Width="762" Foreground="White" BorderBrush="Transparent" Background="#19FFFFFF" ContextMenu="{StaticResource ContextMenu}" FontFamily="Microsoft YaHei UI Light"/>
+                    <Button Margin="691,4,10,368" Height="Auto" Content="提示" BorderBrush="#7F000000" Background="#FF673AB7" Foreground="White" Click="ServerTip" FontFamily="Microsoft YaHei UI Light"/>
+                </Grid>
+                <Grid x:Name="Page3" IsVisibleChanged="Page3_IsVisibleChanged">
+                    <Grid Margin="0,0,626,0" Background="#19FFFFFF">
+                        <TreeView MinWidth="156">
+                            <TreeViewItem Header="服务端设置" Foreground="#DDFFFFFF" IsExpanded="True" FontFamily="Microsoft YaHei UI Light">
+                                <TreeViewItem Header="运行设置" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" PreviewMouseUp="ToSubPage1" />
+                                <TreeViewItem Header="下载" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" PreviewMouseUp="ToSubPage2"/>
+                                <TreeViewItem Header="服务器配置" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light"/>
+                            </TreeViewItem>
+                            <TreeViewItem Header="开服器设置" Foreground="#DDFFFFFF" IsExpanded="True" FontFamily="Microsoft YaHei UI Light">
+                                <TreeViewItem Header="个性化" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" />
+                                <TreeViewItem Header="关于" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" />
+                                <TreeViewItem Header="帮助" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" />
+                            </TreeViewItem>
+                        </TreeView>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Height="399" Margin="156,0,0,0" VerticalAlignment="Top" Width="626" Background="#00000000">
+                        <materialDesign:Card x:Name="SubPage1"
+  Background="{DynamicResource MaterialDesignBackground}" Margin="10">
+                            <StackPanel>
+                                <Expander
+      HorizontalAlignment="Stretch"
+      Header="运行路径 (server运行路径)">
+                                    <Grid Height="70">
+                                        <RadioButton x:Name="R2" Content="自定义" Margin="25,37,521,16" Height="17" Checked="R2_Checked" />
+                                        <TextBox x:Name="TextBox_RunPath" Margin="107,30,79,14" Foreground="Black" Height="25" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True"/>
+                                        <Button x:Name="Button_OpenRunPath" Content="打开" Width="64" Height="24" FontSize="12" Margin="532,30,10,16" Click="Button_OpenRunPath_Click" />
+                                        <RadioButton x:Name="R1" Content="默认 即程序运行目录/server" Margin="25,10,401,43" Height="17" Checked="R1_Checked" />
+                                    </Grid>
+                                </Expander>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+                                <Expander
+      HorizontalAlignment="Stretch"
+      Header="Java路径">
+                                    <Grid Height="48">
+                                        <Label Content="选择java.exe目录:" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Margin="32,10,461,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="113"/>
+                                        <TextBox x:Name="TextBox_JavaPath" Margin="150,10,88,10" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True"/>
+                                        <Button Content="打开" Height="Auto" FontSize="12" Margin="523,12,10,12" Click="OpenJava"/>
+                                    </Grid>
+                                </Expander>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+                                <Grid>
+                                    <Label Height="48" Background="#FFFAFAFA" Content="     最大内存 (MB)" Foreground="Black" VerticalContentAlignment="Center" FontSize="14"/>
+                                    <TextBox x:Name="TextBox_Memory" Margin="357,10,10,10" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True"/>
+                                </Grid>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <materialDesign:Card x:Name="SubPage2"
+  Background="{DynamicResource MaterialDesignBackground}" Margin="10" d:IsHidden="True">
+                            <StackPanel>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+                                <Expander
+      HorizontalAlignment="Stretch"
+      Header="存放路径">
+                                    <Grid Height="48">
+                                        <Label Content="选择下载存放目录:" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Margin="25,14,466,10"/>
+                                        <TextBox x:Name="TextBox_FilePath" Margin="141,10,79,10" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True"/>
+                                        <Button Content="打开" Width="64" Height="24" FontSize="12" Margin="532,12,10,12" Click="OpenFilesPath"/>
+                                    </Grid>
+                                </Expander>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+                                <Grid>
+                                    <Label Height="48" Background="#FFFAFAFA" Content="     下载源" Foreground="Black" VerticalContentAlignment="Center" FontSize="14"/>
+                                    <ComboBox  x:Name="C1" HorizontalAlignment="Left" Margin="425,10,0,0" VerticalAlignment="Top" Width="171" SelectedIndex="0" Height="28">
+                                        <System:String>XINGAPI</System:String>
+                                        <System:String>Sakura's Mirror</System:String>
+                                    </ComboBox>
+                                </Grid>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <materialDesign:ColorZone Mode="PrimaryMid" Margin="261,0,267,0" Height="33">
+            <StackPanel  Orientation="Horizontal"   Margin="2,4,0,0">
+                <RadioButton    Style="{StaticResource MaterialDesignTabRadioButton}"   Margin="4,0,4,3"   IsChecked="True"
+      Content="控制台" Height="Auto" FontSize="13" BorderBrush="White" Checked="RadioButton_Checked" FontFamily="Microsoft YaHei UI Light"  />
+                <RadioButton   Style="{StaticResource MaterialDesignTabRadioButton}"   Margin="4,0,4,3"    IsChecked="False"
+      Content="下载" Height="Auto" BorderBrush="White" FontSize="13" Checked="RadioButton_Checked_1" FontFamily="Microsoft YaHei UI Light" />
+                <RadioButton    Style="{StaticResource MaterialDesignTabRadioButton}"     Margin="4,0,4,3"   IsChecked="False"
+      Content="设置" Height="Auto" BorderBrush="White" FontSize="13" Checked="RadioButton_Checked_2" FontFamily="Microsoft YaHei UI Light" />
+            </StackPanel>
+        </materialDesign:ColorZone>
+        <Button Style="{DynamicResource MaterialDesignFlatMidBgButton}" ToolTip="MaterialDesignFloatingActionMiniDarkButton" Margin="0,4,4,0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="48" Height="25" Foreground="White" Click="Button_Close">
+            <materialDesign:PackIcon  Kind="WindowClose"  Height="18" Width="18" />
+        </Button>
+        <Button Style="{DynamicResource MaterialDesignFlatMidBgButton}" ToolTip="MaterialDesignFloatingActionMiniDarkButton" Margin="0,4,57,0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="48" Height="25" Foreground="White" Click="Button_Mini">
+            <materialDesign:PackIcon   Kind="WindowMinimize"  Height="18"   Width="18" />
+        </Button>
+        <materialDesign:Snackbar HorizontalAlignment="Stretch" x:Name="snackbar" IsActive="{Binding IsActive}" MessageQueue="{materialDesign:MessageQueue}" FontFamily="Microsoft YaHei UI Light"/>
+    </Grid>
+</Window>
