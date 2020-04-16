@@ -595,6 +595,7 @@ namespace XST
 
         private void whitelist_Click(object sender, RoutedEventArgs e)
         {
+            
             string a = "whitelist=false";
             string b = "whitelist=true";
             string path = Json.Read("Files", "WorkingPath") + "\\server.properties";
@@ -603,7 +604,7 @@ namespace XST
                 FileIO.ChangeTXT(path, a, b);
             }
             else
-                FileIO.ChangeTXT(path, b, a);
+                FileIO.ChangeTXT(path, b, a);  
         }
 
         private void TreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -620,6 +621,17 @@ namespace XST
                 SubPage4.Visibility = Visibility.Visible;
                
             }
+        }
+
+        private void whitelist_Checked(object sender, RoutedEventArgs e)
+        {
+            
+            FileIO.ChangeTXT((Json.Read("Files", "WorkingPath") + "\\server.properties"), "whitelist=false","whitelist=true");
+        }
+
+        private void whitelist_Unchecked(object sender, RoutedEventArgs e)
+        {
+            FileIO.ChangeTXT((Json.Read("Files", "WorkingPath") + "\\server.properties"), "whitelist=true", "whitelist=false");
         }
     }
 }
