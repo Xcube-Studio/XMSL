@@ -8,6 +8,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using WinForm = System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace XST
 {
@@ -70,7 +71,7 @@ namespace XST
         private void Button_Close(object sender, RoutedEventArgs e)
         {
             try { process.Kill(); } catch { }
-            System.Diagnostics.Process.GetCurrentProcess().Kill();
+            Process.GetCurrentProcess().Kill();
         }
         private void Button_Mini(object sender, RoutedEventArgs e)
         {
@@ -98,6 +99,7 @@ namespace XST
             Page2.Visibility = Visibility.Collapsed;
             SubPage1.Visibility = Visibility.Visible;
             SubPage2.Visibility = Visibility.Collapsed;
+            SubPage3.Visibility = Visibility.Collapsed;
             Thread thread = new Thread(() =>
             {
                 if (File.Exists(LocalPath + "\\XST.json"))
@@ -147,11 +149,19 @@ namespace XST
         {
             SubPage1.Visibility = Visibility.Visible;
             SubPage2.Visibility = Visibility.Collapsed;
+            SubPage3.Visibility = Visibility.Collapsed;
         }
         private void ToSubPage2(object sender, MouseButtonEventArgs e)
         {
             SubPage2.Visibility = Visibility.Visible;
             SubPage1.Visibility = Visibility.Collapsed;
+            SubPage3.Visibility = Visibility.Collapsed;
+        }
+        private void ToSubPage3(object sender, MouseButtonEventArgs e)
+        {
+            SubPage2.Visibility = Visibility.Collapsed;
+            SubPage1.Visibility = Visibility.Collapsed;
+            SubPage3.Visibility = Visibility.Visible;
         }
         private void ServerTip(object sender, RoutedEventArgs e)
         {
@@ -353,7 +363,7 @@ namespace XST
             }
             else return null;
         }
-        public static string LocalPath = System.IO.Directory.GetCurrentDirectory();
+        public static string LocalPath = Directory.GetCurrentDirectory();
         public int CopyFolder(string sourceFolder, string destFolder)
         {
             try
@@ -421,6 +431,33 @@ namespace XST
             {
                 ShowTip("安装失败", 1);
             }
+        }
+        public static List<string> GetJava()
+        {
+            string b = null;
+            List<string> javas = new List<string>();
+            RegistryKey registryJava = Registry.LocalMachine.OpenSubKey("SOFTWARE\\JavaSoft\\Java Runtime Environment");
+            string[] a = registryJava.GetSubKeyNames();
+            for (int i = 0; i < a.Length; i++)
+            {
+                RegistryKey reg = Registry.LocalMachine.OpenSubKey("SOFTWARE\\JavaSoft\\Java Runtime Environment\\" + a[i]);
+                b = reg.GetValue("JavaHome").ToString() + "\\bin\\javaw.exe";
+
+                if (System.IO.File.Exists(b))
+                { }
+                else continue;
+                bool x = false;
+                for (int o = 0; o < javas.Count; o++)
+                {
+                    if (b == javas[o])
+                    { x = true; }
+                }
+                if (x == false)
+                {
+                    javas.Add(b);
+                }
+            }
+            return javas;
         }
     }
 }

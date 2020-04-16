@@ -7,14 +7,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="XST.exe.manifest" size="5889">
+    <dependentAssembly dependencyType="install" codebase="XST.exe.manifest" size="3874">
       <assemblyIdentity name="XST.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>pv9S7HKTS1ewCAF824GfXKLnSw6T7UE4kFsVGjDQtGg=</dsig:DigestValue>
+        <dsig:DigestValue>n3jLflyI1IhMLTIT5PShVihhO19EsqoCW1oXEqdHn1o=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
