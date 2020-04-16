@@ -61,7 +61,7 @@
                             <TreeViewItem Header="服务端设置" Foreground="#DDFFFFFF" IsExpanded="True" FontFamily="Microsoft YaHei UI Light">
                                 <TreeViewItem Header="运行设置" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" PreviewMouseUp="ToSubPage1" />
                                 <TreeViewItem Header="下载" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" PreviewMouseUp="ToSubPage2"/>
-                                <TreeViewItem Header="服务器配置" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light"/>
+                                <TreeViewItem Header="服务器配置" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" PreviewMouseUp="TreeViewItem_PreviewMouseUp"/>
                             </TreeViewItem>
                             <TreeViewItem Header="开服器设置" Foreground="#DDFFFFFF" IsExpanded="True" FontFamily="Microsoft YaHei UI Light">
                                 <TreeViewItem Header="个性化" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" />
@@ -69,6 +69,14 @@
                                 <TreeViewItem Header="帮助" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" />
                             </TreeViewItem>
                         </TreeView>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Height="399" Margin="156,0,0,0" VerticalAlignment="Top" Width="626" Background="#00000000">
+                        <materialDesign:Card x:Name="SubPage4"
+  Background="{DynamicResource MaterialDesignBackground}" Margin="10"/>
+                        <TextBlock Text="服务端配置" Margin="28,24,450,336" FontFamily="Microsoft YaHei UI Light" FontSize="24"></TextBlock>
+                        <TextBlock Text="此配置文件是配置server.properties" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="81,63,317,298"/>
+                        <TextBlock Text="白名单" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="28,101,510,274"/>
+                        <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" x:Name="whitelist" Margin="43,68,450,255" Click="whitelist_Click" />
                     </Grid>
                     <Grid HorizontalAlignment="Left" Height="399" Margin="156,0,0,0" VerticalAlignment="Top" Width="626" Background="#00000000">
                         <materialDesign:Card x:Name="SubPage1"
@@ -151,7 +159,7 @@
                             </StackPanel>
                         </materialDesign:Card>
                         <materialDesign:Card x:Name="SubPage3"
-  Background="{DynamicResource MaterialDesignBackground}" Margin="10">
+  Background="{DynamicResource MaterialDesignBackground}" Margin="10" d:IsHidden="True">
                             <StackPanel>
                                 <Grid Height="60">
                                     <Label Content="XIN Server Tool是一个适合小白、基友的Minecraft 服务器工具。能够使小白腐竹快速开服、下载服务端、&#xD;&#xA;管理以及其他资源。我们希望能得到您对我们开服器的支持" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="586" Height="40"/>

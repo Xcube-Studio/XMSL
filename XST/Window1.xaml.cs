@@ -1,22 +1,14 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.Devices;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.IO;
+using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Net;
-using Newtonsoft.Json.Linq;
-using System.Diagnostics;
-using Microsoft.VisualBasic.Devices;
-using System.IO;
 
 namespace XST
 {
@@ -31,7 +23,7 @@ namespace XST
         }
         public static Window Window;
         public static Window1 window1;
-        public static void SetUp(string Path, string version, string version1,string JavaPath)
+        public static void SetUp(string Path, string version, string version1, string JavaPath)
         {
             window1 = new Window1();
             window1.Owner = Window;
@@ -55,7 +47,7 @@ namespace XST
                 }
                 Task task = new Task(() =>
                 {
-                    for(int i=0;i<vs.Count;i++)
+                    for (int i = 0; i < vs.Count; i++)
                     {
                         window1.DownloadFile(vs[i], Path + "\\" + System.IO.Path.GetFileName(vs[i]), window1.PB1, window1.Label1);
                     }
@@ -72,7 +64,7 @@ namespace XST
                     }));
                     Process process = new Process();
                     process.StartInfo.FileName = JavaPath;
-                    process.StartInfo.Arguments = " -jar " + Path  + "\\" + System.IO.Path.GetFileName(vs[2]) + " nogui --installServer";
+                    process.StartInfo.Arguments = " -jar " + Path + "\\" + System.IO.Path.GetFileName(vs[2]) + " nogui --installServer";
                     process.StartInfo.WorkingDirectory = Path;
                     process.Start();
                     process.StartInfo.RedirectStandardOutput = true;
@@ -84,14 +76,16 @@ namespace XST
                         window1.Button.Visibility = Visibility.Visible;
                     }));
                     if (Directory.Exists(Path + "\\mods"))
-                    { } else Directory.CreateDirectory(Path + "\\mods");
+                    { }
+                    else Directory.CreateDirectory(Path + "\\mods");
                     try { File.Move(Path + "\\" + System.IO.Path.GetFileName(vs[0]), Path + "\\mods\\" + System.IO.Path.GetFileName(vs[0])); } catch { }
                     try
                     {
                         Computer computer = new Computer();
                         computer.FileSystem.RenameFile(Path + "\\" + System.IO.Path.GetFileName(vs[2]).Replace("installer", "universal"), "server.jar");
-                    } catch { }
-                }); 
+                    }
+                    catch { }
+                });
                 thread.Start();
             }
             else if (version == "Forge")
@@ -139,7 +133,8 @@ namespace XST
                     {
                         Computer computer = new Computer();
                         computer.FileSystem.RenameFile(Path + "\\" + System.IO.Path.GetFileName(vs[0]).Replace("installer", "universal"), "server.jar");
-                    } catch { }
+                    }
+                    catch { }
                 });
                 thread.Start();
             }

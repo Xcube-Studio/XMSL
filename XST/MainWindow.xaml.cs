@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +9,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using WinForm = System.Windows.Forms;
-using Microsoft.Win32;
 
 namespace XST
 {
@@ -29,7 +29,7 @@ namespace XST
             }
             else
             {
-                throw new Exception() ;
+                throw new Exception();
             }
         }
         public static void Write(string Section, string Name, string Text)
@@ -57,12 +57,137 @@ namespace XST
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
+    public class FileIO
+    {
+        public static void ChangeTXT(string path, string a, string b)
+        {
+            if (File.Exists(path))
+            {
+                string con = "";
+                FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                StreamReader sr = new StreamReader(fs);
+                con = sr.ReadToEnd();
+                con = con.Replace(a, b);
+                sr.Close();
+                fs.Close();
+                FileStream fs2 = new FileStream(path, FileMode.Open, FileAccess.Write);
+                StreamWriter sw = new StreamWriter(fs2);
+                sw.WriteLine(con);
+                sw.Close();
+                fs2.Close();
+
+            }
+        }
+        public static string FindTXT(string path, string a)
+        {
+            StreamReader read = new StreamReader(path);
+            string str;
+            while ((str = read.ReadLine()) != null)
+            {
+                if (str.IndexOf(a) >= 0)
+                {
+                    string[] arr = str.Split('=');
+                    return arr[1];
+
+                }
+            }
+            return null;
+        }
+    }
+    public class Java
+    {
+        public static string FineJava()
+        {
+            string a = null;
+            if (Directory.Exists("C:\\Program Files\\Java"))
+            {
+                a = (GetDirectory("C:\\Program Files\\Java") + "\\bin\\javaw.exe");
+            }
+            else
+            {
+                if (Directory.Exists("C:\\Program Files (x86)\\Java"))
+                    a = (GetDirectory("C:\\Program Files (x86)\\Java") + "\\bin\\javaw.exe");
+                else
+                {
+
+                    a = GetJava();
+                }
+            }
+          
+       
+            return a;
+        }
+        public static string GetJava()
+        {
+
+            string b = null;
+            List<string> javas = new List<string>();
+            RegistryKey registryJava = Registry.LocalMachine.OpenSubKey("SOFTWARE\\JavaSoft\\Java Runtime Environment");
+            string[] a = registryJava.GetSubKeyNames();
+            for (int i = 0; i < a.Length; i++)
+            {
+                RegistryKey reg = Registry.LocalMachine.OpenSubKey("SOFTWARE\\JavaSoft\\Java Runtime Environment\\" + a[i]);
+                b = reg.GetValue("JavaHome").ToString() + "\\bin\\javaw.exe";
+
+                if (System.IO.File.Exists(b))
+                { }
+                else continue;
+                bool x = false;
+                for (int o = 0; o < javas.Count; o++)
+                {
+                    if (b == javas[o])
+                    { x = true; }
+                }
+                if (x == false)
+                {
+                    javas.Add(b);
+                }
+            }
+
+
+            return b;
+
+
+        }
+        public static string GetDirectory(string path)
+        {
+            string JavaPath = null;
+            List<String> list = new List<string>();
+            DirectoryInfo root = new DirectoryInfo(path);
+            DirectoryInfo[] di = root.GetDirectories();
+            String[] JavaPath2 = new String[di.Length];
+            for (int i = 0; i < di.Length; i++)
+            {
+
+                JavaPath2[i] = di[i].FullName;
+                list.Add(di[i].FullName);
+            }
+            for (int i = 0; i < di.Length; i++)
+            {
+                if (JavaPath2[i].Contains("jre"))
+                    JavaPath = JavaPath2[i];
+
+
+            }
+            if (JavaPath == null)
+                JavaPath = JavaPath2[1];
+            return JavaPath;
+        }
+    
+}
     public partial class MainWindow : Window
     {
         #region MainWindow控件交互
         public MainWindow()
         {
             InitializeComponent();
+            if(Json.Read("Files", "WorkingPath")==""& Json.Read("Files", "JavaPath") == "")
+            {
+                string a = System.AppDomain.CurrentDomain.BaseDirectory + "\\server\\";
+                string b = Java.FineJava();
+                Json.Write("Files", "WorkingPath", a);
+                Json.Write("Files", "JavaPath", b);
+            }
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -107,6 +232,10 @@ namespace XST
                 else
                 {
                     File.WriteAllText(LocalPath + "\\XST.json", Properties.Resources.String1);
+                    string a= System.AppDomain.CurrentDomain.BaseDirectory+"\\server\\";
+                    string b=Java.FineJava();
+                    Json.Write("Files", "WorkingPath", a);
+                    Json.Write("Files", "JavaPath", b);
                 }
             });
             thread.Start();
@@ -118,7 +247,7 @@ namespace XST
                 TextBox_RunPath.Text = Json.Read("Files", "WorkingPath");
                 TextBox_JavaPath.Text = Json.Read("Files", "JavaPath");
                 TextBox_Memory.Text = Json.Read("JVM", "Memory");
-                if (Json.Read("Files", "DownloadFilesPath").Length>0)
+                if (Json.Read("Files", "DownloadFilesPath").Length > 0)
                 { }
                 else Json.Write("Files", "DownloadFilesPath", LocalPath + "\\Download");
                 TextBox_FilePath.Text = Json.Read("Files", "DownloadFilesPath");
@@ -150,18 +279,21 @@ namespace XST
             SubPage1.Visibility = Visibility.Visible;
             SubPage2.Visibility = Visibility.Collapsed;
             SubPage3.Visibility = Visibility.Collapsed;
+            SubPage4.Visibility = Visibility.Collapsed;
         }
         private void ToSubPage2(object sender, MouseButtonEventArgs e)
         {
             SubPage2.Visibility = Visibility.Visible;
             SubPage1.Visibility = Visibility.Collapsed;
             SubPage3.Visibility = Visibility.Collapsed;
+            SubPage4.Visibility = Visibility.Collapsed;
         }
         private void ToSubPage3(object sender, MouseButtonEventArgs e)
         {
             SubPage2.Visibility = Visibility.Collapsed;
             SubPage1.Visibility = Visibility.Collapsed;
             SubPage3.Visibility = Visibility.Visible;
+            SubPage4.Visibility = Visibility.Collapsed;
         }
         private void ServerTip(object sender, RoutedEventArgs e)
         {
@@ -218,7 +350,7 @@ namespace XST
                     System.GC.Collect();
                     this.Dispatcher.BeginInvoke(new Action(() =>
                     {
-                        ShowTip("下载完成" , 1);
+                        ShowTip("下载完成", 1);
                     }));
                 }
                 catch (Exception ex)
@@ -272,7 +404,7 @@ namespace XST
         private void StartServer(object sender, RoutedEventArgs e)
         {
             process = new Process();
-            process.StartInfo.WorkingDirectory = Json.Read("Files","WorkingPath");
+            process.StartInfo.WorkingDirectory = Json.Read("Files", "WorkingPath");
             process.StartInfo.FileName = Json.Read("Files", "JavaPath");
             process.StartInfo.Arguments = "-Xmx" + Json.Read("JVM", "Memory") + "M" + " -XX:+AggressiveOpts -XX:+UseCompressedOops" + " -jar " + Json.Read("Files", "WorkingPath") + "\\server.jar nogui";
             process.StartInfo.UseShellExecute = false;
@@ -317,6 +449,7 @@ namespace XST
             T2.Clear();
         }
         #endregion
+
         public static string[] GetServerVersions()
         {
             try
@@ -458,6 +591,35 @@ namespace XST
                 }
             }
             return javas;
+        }
+
+        private void whitelist_Click(object sender, RoutedEventArgs e)
+        {
+            string a = "whitelist=false";
+            string b = "whitelist=true";
+            string path = Json.Read("Files", "WorkingPath") + "\\server.properties";
+            if ((bool)whitelist.IsChecked)
+            {
+                FileIO.ChangeTXT(path, a, b);
+            }
+            else
+                FileIO.ChangeTXT(path, b, a);
+        }
+
+        private void TreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!File.Exists(Json.Read("Files", "WorkingPath") + "\\server.properties"))
+            {
+                MessageBox.Show("未找到server.properties\n解决方法：\n1.请先启动一次服务端\n2.请检查服务端目录是否正确","提示");
+            }
+            else
+            {
+                SubPage2.Visibility = Visibility.Collapsed;
+                SubPage1.Visibility = Visibility.Collapsed;
+                SubPage3.Visibility = Visibility.Collapsed;
+                SubPage4.Visibility = Visibility.Visible;
+               
+            }
         }
     }
 }
