@@ -59,39 +59,30 @@ namespace XST
     /// </summary>
     public class FileIO
     {
-        public static void ChangeTXT(string path, string a, string b)
+        public static void WriteTXT(string path, string Name, string text)
         {
-            if (File.Exists(path))
+            string[] a = File.ReadAllLines(path);
+            List<string> vs = new List<string>();
+            for (int i = 0; i < a.Length; i++)
             {
-                string con = "";
-                FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-                StreamReader sr = new StreamReader(fs);
-                con = sr.ReadToEnd();
-                con = con.Replace(a, b);
-                sr.Close();
-                fs.Close();
-                FileStream fs2 = new FileStream(path, FileMode.Open, FileAccess.Write);
-                StreamWriter sw = new StreamWriter(fs2);
-                sw.WriteLine(con);
-                sw.Close();
-                fs2.Close();
-
+                string b = a[i];
+                if (b.Split('=')[0] == Name)
+                    vs.Add(Name + "=" + text);
+                else vs.Add(b);
             }
+            File.WriteAllLines(path, vs.ToArray());
         }
-        public static string FindTXT(string path, string a)
+        public static string FindTXT(string path, string Name)
         {
-            StreamReader read = new StreamReader(path);
-            string str;
-            while ((str = read.ReadLine()) != null)
+            string[] a = File.ReadAllLines(path);
+            string result = null;
+            for(int i=0;i<a.Length;i++)
             {
-                if (str.IndexOf(a) >= 0)
-                {
-                    string[] arr = str.Split('=');
-                    return arr[1];
-
-                }
+                string b = a[i];
+                if (b.Split('=')[0] == Name)
+                    result = b.Split('=')[1];
             }
-            return null;
+            return result;
         }
     }
     public class Java
@@ -195,7 +186,11 @@ namespace XST
         }
         private void Button_Close(object sender, RoutedEventArgs e)
         {
-            try { process.Kill(); } catch { }
+            if (process != null)
+            {
+                process.Kill();
+                process.Dispose();
+            }
             Process.GetCurrentProcess().Kill();
         }
         private void Button_Mini(object sender, RoutedEventArgs e)
@@ -221,24 +216,19 @@ namespace XST
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Page1.Visibility = Visibility.Visible;
-            Page2.Visibility = Visibility.Collapsed;
+            Page2.Visibility = Page3.Visibility = Visibility.Collapsed;
             SubPage1.Visibility = Visibility.Visible;
-            SubPage2.Visibility = Visibility.Collapsed;
-            SubPage3.Visibility = Visibility.Collapsed;
-            Thread thread = new Thread(() =>
+            SubPage2.Visibility = SubPage3.Visibility = SubPage4.Visibility = Visibility.Collapsed;
+            if (File.Exists(LocalPath + "\\XST.json"))
+            { }
+            else
             {
-                if (File.Exists(LocalPath + "\\XST.json"))
-                { }
-                else
-                {
-                    File.WriteAllText(LocalPath + "\\XST.json", Properties.Resources.String1);
-                    string a= System.AppDomain.CurrentDomain.BaseDirectory+"\\server\\";
-                    string b=Java.FineJava();
-                    Json.Write("Files", "WorkingPath", a);
-                    Json.Write("Files", "JavaPath", b);
-                }
-            });
-            thread.Start();
+                File.WriteAllText(LocalPath + "\\XST.json", Properties.Resources.String1);
+                string a = System.AppDomain.CurrentDomain.BaseDirectory + "\\server\\";
+                string b = Java.FineJava();
+                Json.Write("Files", "WorkingPath", a);
+                Json.Write("Files", "JavaPath", b);
+            }
             try
             {
                 if (Convert.ToBoolean(Json.Read("Files", "UseDefaultDirectory")))
@@ -294,6 +284,30 @@ namespace XST
             SubPage1.Visibility = Visibility.Collapsed;
             SubPage3.Visibility = Visibility.Visible;
             SubPage4.Visibility = Visibility.Collapsed;
+        }
+        private void ToSubPage4(object sender, MouseButtonEventArgs e)
+        {
+            if (Convert.ToBoolean(Json.Read("Files", "UseDefaultDirectory")))
+            {
+                if (!File.Exists(Directory.GetCurrentDirectory()+"\\server"))
+                    MessageBox.Show("未找到server.properties\n解决方法：\n1.请先启动一次服务端\n2.请检查服务端目录是否正确", "提示");
+                else
+                {
+                    SubPage2.Visibility = SubPage1.Visibility = SubPage3.Visibility = Visibility.Collapsed;
+                    SubPage4.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                if (!File.Exists(Json.Read("Files", "WorkingPath") + "\\server.properties"))
+                    MessageBox.Show("未找到server.properties\n解决方法：\n1.请先启动一次服务端\n2.请检查服务端目录是否正确", "提示");
+                else
+                {
+                    SubPage2.Visibility = SubPage1.Visibility = SubPage3.Visibility = Visibility.Collapsed;
+                    SubPage4.Visibility = Visibility.Visible;
+                }
+            }
+            
         }
         private void ServerTip(object sender, RoutedEventArgs e)
         {
@@ -388,7 +402,12 @@ namespace XST
         }
         private void Page3_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            SaveJson();
+            if (Page3.Visibility == Visibility.Collapsed)
+            {
+                SaveJson();
+                SubPage1.Visibility = Visibility.Visible;
+                SubPage2.Visibility = SubPage3.Visibility = SubPage4.Visibility = Visibility.Collapsed;
+            }
         }
         private void R2_Checked(object sender, RoutedEventArgs e)
         {
@@ -397,6 +416,31 @@ namespace XST
         private void R1_Checked(object sender, RoutedEventArgs e)
         {
             TextBox_RunPath.IsEnabled = Button_OpenRunPath.IsEnabled = false;
+        }
+        private void SubPage4_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            string settings;
+            if (Convert.ToBoolean(Json.Read("Files", "UseDefaultDirectory")))
+                settings = Directory.GetCurrentDirectory() + "\\server\\server.properties";
+            else settings = Json.Read("Files", "WorkingPath") + "\\server.properties";
+            if (SubPage4.Visibility == Visibility.Visible)
+            {
+                TG1.IsChecked = Convert.ToBoolean(FileIO.FindTXT(settings, "online-mode"));
+                TG2.IsChecked = Convert.ToBoolean(FileIO.FindTXT(settings, "white-list"));
+                TG3.IsChecked = Convert.ToBoolean(FileIO.FindTXT(settings, "pvp"));
+                TG4.IsChecked = Convert.ToBoolean(FileIO.FindTXT(settings, "enable-command-block"));
+                TextBox_Server_Title.Text = FileIO.FindTXT(settings, "motd");
+                TextBox_Server_Max.Text = FileIO.FindTXT(settings, "max-players");
+            }
+            else
+            {
+                FileIO.WriteTXT(settings, "online-mode", TG1.IsChecked.ToString().ToLower());
+                FileIO.WriteTXT(settings, "white-list", TG2.IsChecked.ToString().ToLower());
+                FileIO.WriteTXT(settings, "pvp", TG3.IsChecked.ToString().ToLower());
+                FileIO.WriteTXT(settings, "enable-command-block", TG4.IsChecked.ToString().ToLower());
+                FileIO.WriteTXT(settings, "motd", TextBox_Server_Title.Text);
+                FileIO.WriteTXT(settings, "max-players", TextBox_Server_Max.Text);
+            }
         }
         #endregion
         #region 服务器操作
@@ -449,7 +493,6 @@ namespace XST
             T2.Clear();
         }
         #endregion
-
         public static string[] GetServerVersions()
         {
             try
@@ -564,74 +607,6 @@ namespace XST
             {
                 ShowTip("安装失败", 1);
             }
-        }
-        public static List<string> GetJava()
-        {
-            string b = null;
-            List<string> javas = new List<string>();
-            RegistryKey registryJava = Registry.LocalMachine.OpenSubKey("SOFTWARE\\JavaSoft\\Java Runtime Environment");
-            string[] a = registryJava.GetSubKeyNames();
-            for (int i = 0; i < a.Length; i++)
-            {
-                RegistryKey reg = Registry.LocalMachine.OpenSubKey("SOFTWARE\\JavaSoft\\Java Runtime Environment\\" + a[i]);
-                b = reg.GetValue("JavaHome").ToString() + "\\bin\\javaw.exe";
-
-                if (System.IO.File.Exists(b))
-                { }
-                else continue;
-                bool x = false;
-                for (int o = 0; o < javas.Count; o++)
-                {
-                    if (b == javas[o])
-                    { x = true; }
-                }
-                if (x == false)
-                {
-                    javas.Add(b);
-                }
-            }
-            return javas;
-        }
-
-        private void whitelist_Click(object sender, RoutedEventArgs e)
-        {
-            
-            string a = "whitelist=false";
-            string b = "whitelist=true";
-            string path = Json.Read("Files", "WorkingPath") + "\\server.properties";
-            if ((bool)whitelist.IsChecked)
-            {
-                FileIO.ChangeTXT(path, a, b);
-            }
-            else
-                FileIO.ChangeTXT(path, b, a);  
-        }
-
-        private void TreeViewItem_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            if (!File.Exists(Json.Read("Files", "WorkingPath") + "\\server.properties"))
-            {
-                MessageBox.Show("未找到server.properties\n解决方法：\n1.请先启动一次服务端\n2.请检查服务端目录是否正确","提示");
-            }
-            else
-            {
-                SubPage2.Visibility = Visibility.Collapsed;
-                SubPage1.Visibility = Visibility.Collapsed;
-                SubPage3.Visibility = Visibility.Collapsed;
-                SubPage4.Visibility = Visibility.Visible;
-               
-            }
-        }
-
-        private void whitelist_Checked(object sender, RoutedEventArgs e)
-        {
-            
-            FileIO.ChangeTXT((Json.Read("Files", "WorkingPath") + "\\server.properties"), "whitelist=false","whitelist=true");
-        }
-
-        private void whitelist_Unchecked(object sender, RoutedEventArgs e)
-        {
-            FileIO.ChangeTXT((Json.Read("Files", "WorkingPath") + "\\server.properties"), "whitelist=true", "whitelist=false");
         }
     }
 }

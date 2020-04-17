@@ -61,7 +61,7 @@
                             <TreeViewItem Header="服务端设置" Foreground="#DDFFFFFF" IsExpanded="True" FontFamily="Microsoft YaHei UI Light">
                                 <TreeViewItem Header="运行设置" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" PreviewMouseUp="ToSubPage1" />
                                 <TreeViewItem Header="下载" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" PreviewMouseUp="ToSubPage2"/>
-                                <TreeViewItem Header="服务器配置" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" PreviewMouseUp="TreeViewItem_PreviewMouseUp"/>
+                                <TreeViewItem Header="服务器配置" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" PreviewMouseUp="ToSubPage4"/>
                             </TreeViewItem>
                             <TreeViewItem Header="开服器设置" Foreground="#DDFFFFFF" IsExpanded="True" FontFamily="Microsoft YaHei UI Light">
                                 <TreeViewItem Header="个性化" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" />
@@ -71,25 +71,15 @@
                         </TreeView>
                     </Grid>
                     <Grid HorizontalAlignment="Left" Height="399" Margin="156,0,0,0" VerticalAlignment="Top" Width="626" Background="#00000000">
-                        <materialDesign:Card x:Name="SubPage4"
-  Background="{DynamicResource MaterialDesignBackground}" Margin="10"/>
-                        <TextBlock Text="服务端配置" Margin="28,24,450,336" FontFamily="Microsoft YaHei UI Light" FontSize="24"></TextBlock>
-                        <TextBlock Text="此配置文件是配置server.properties" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="81,63,317,298"/>
-                        <TextBlock Text="白名单" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="28,101,510,274"/>
-                        <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" x:Name="whitelist" Margin="43,68,450,255"  ToolTip="Default ToggleButton Style" IsEnabled="True" Checked="whitelist_Checked" Unchecked="whitelist_Unchecked"/>
-                    </Grid>
-                    <Grid HorizontalAlignment="Left" Height="399" Margin="156,0,0,0" VerticalAlignment="Top" Width="626" Background="#00000000">
                         <materialDesign:Card x:Name="SubPage1"
   Background="{DynamicResource MaterialDesignBackground}" Margin="10" d:IsHidden="True">
                             <StackPanel>
-                                <Expander
-      HorizontalAlignment="Stretch"
-      Header="运行路径 (server运行路径)" FontFamily="Microsoft YaHei UI Light">
+                                <Expander HorizontalAlignment="Stretch" Header="运行路径 (server运行路径)" FontFamily="Microsoft YaHei UI Light">
                                     <Grid Height="70">
-                                        <RadioButton x:Name="R2" Content="自定义" Margin="25,37,521,16" Height="17" Checked="R2_Checked" />
-                                        <TextBox x:Name="TextBox_RunPath" Margin="107,30,79,14" Foreground="Black" Height="25" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True"/>
-                                        <Button x:Name="Button_OpenRunPath" Content="打开" Width="64" Height="24" FontSize="12" Margin="532,30,10,16" Click="Button_OpenRunPath_Click" />
-                                        <RadioButton x:Name="R1" Content="默认 即程序运行目录/server" Margin="25,10,401,43" Height="17" Checked="R1_Checked" />
+                                        <RadioButton x:Name="R2" Content="自定义" Margin="25,38,0,14" Height="17" Checked="R2_Checked" HorizontalAlignment="Left" />
+                                        <TextBox x:Name="TextBox_RunPath" Margin="88,35,71,10" Foreground="Black" Height="25" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True"/>
+                                        <RadioButton x:Name="R1" Content="默认 运行目录\server" Margin="25,10,0,43" Height="17" Checked="R1_Checked" HorizontalAlignment="Left" />
+                                        <Button x:Name="Button_OpenRunPath" Margin="519,30,10,14" Height="Auto" Content="打开" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_OpenRunPath_Click"/>
                                     </Grid>
                                 </Expander>
                                 <Border
@@ -97,13 +87,11 @@
       Height="1"
       HorizontalAlignment="Stretch"
       SnapsToDevicePixels="True" />
-                                <Expander
-      HorizontalAlignment="Stretch"
-      Header="Java路径" FontFamily="Microsoft YaHei UI Light">
+                                <Expander HorizontalAlignment="Stretch" Header="Java路径" FontFamily="Microsoft YaHei UI Light">
                                     <Grid Height="48">
-                                        <Label Content="选择java.exe目录:" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Margin="32,10,461,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="113"/>
-                                        <TextBox x:Name="TextBox_JavaPath" Margin="150,10,88,10" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True"/>
-                                        <Button Content="打开" Height="Auto" FontSize="12" Margin="523,12,10,12" Click="OpenJava"/>
+                                        <Label Content="选择java.exe目录:" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="26,15,478,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                        <TextBox x:Name="TextBox_JavaPath" Margin="133,14,73,10" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True" SnapsToDevicePixels="True" Height="25" />
+                                        <Button Margin="0,0,10,10" Height="Auto" Content="打开" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="OpenJava"/>
                                     </Grid>
                                 </Expander>
                                 <Border
@@ -113,7 +101,7 @@
       SnapsToDevicePixels="True" />
                                 <Grid>
                                     <Label Height="48" Background="#FFFAFAFA" Content="     最大内存 (MB)" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
-                                    <TextBox x:Name="TextBox_Memory" Margin="357,10,10,10" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True"/>
+                                    <TextBox x:Name="TextBox_Memory" Margin="357,13,0,0" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="239"/>
                                 </Grid>
                                 <Border
       Background="{DynamicResource MaterialDesignDivider}"
@@ -125,18 +113,11 @@
                         <materialDesign:Card x:Name="SubPage2"
   Background="{DynamicResource MaterialDesignBackground}" Margin="10" d:IsHidden="True">
                             <StackPanel>
-                                <Border
-      Background="{DynamicResource MaterialDesignDivider}"
-      Height="1"
-      HorizontalAlignment="Stretch"
-      SnapsToDevicePixels="True" />
-                                <Expander
-      HorizontalAlignment="Stretch"
-      Header="存放路径" FontFamily="Microsoft YaHei UI Light">
+                                <Expander HorizontalAlignment="Stretch" Header="存放路径" FontFamily="Microsoft YaHei UI Light">
                                     <Grid Height="48">
                                         <Label Content="选择下载存放目录:" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Margin="25,14,466,10"/>
-                                        <TextBox x:Name="TextBox_FilePath" Margin="141,10,79,10" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True"/>
-                                        <Button Content="打开" Width="64" Height="24" FontSize="12" Margin="532,12,10,12" Click="OpenFilesPath"/>
+                                        <TextBox x:Name="TextBox_FilePath" Margin="141,10,71,10" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True" HorizontalAlignment="Stretch" SnapsToDevicePixels="True" />
+                                        <Button Margin="0,15,10,10" Height="Auto" HorizontalAlignment="Right" VerticalAlignment="Center" Content="打开" FontSize="12" Click="OpenFilesPath"/>
                                     </Grid>
                                 </Expander>
                                 <Border
@@ -183,6 +164,67 @@
       Height="1"
       SnapsToDevicePixels="True" VerticalAlignment="Bottom" />
                                 <Grid Height="37"/>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <materialDesign:Card x:Name="SubPage4"
+
+  Background="{DynamicResource MaterialDesignBackground}" Margin="10" IsVisibleChanged="SubPage4_IsVisibleChanged">
+                            <StackPanel>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+                                <Grid Height="38">
+                                    <Label Background="#FFFAFAFA" Content="     正版登录" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                    <ToggleButton x:Name="TG1" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="正版登录" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="44" />
+                                </Grid>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+                                <Grid Height="38">
+                                    <Label Background="#FFFAFAFA" Content="     开启白名单" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                    <ToggleButton x:Name="TG2" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="开启白名单" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="44" />
+                                </Grid>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+                                <Grid Height="38">
+                                    <Label Background="#FFFAFAFA" Content="     允许pvp" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                    <ToggleButton x:Name="TG3" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="允许pvp" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="44" />
+                                </Grid>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+                                <Grid Height="38">
+                                    <Label Background="#FFFAFAFA" Content="     开启命令方块" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                    <ToggleButton x:Name="TG4" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" ToolTip="开启命令方块" IsChecked="False" Margin="0,10,10,10" HorizontalAlignment="Right" Width="44" />
+                                </Grid>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+                                <Grid Height="38">
+                                    <Label Background="#FFFAFAFA" Content="     服务器标题" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                    <TextBox x:Name="TextBox_Server_Title" VerticalAlignment="Center" Margin="0,10,10,8" Height="20" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="422" FontSize="10"  />
+                                </Grid>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+                                <Grid Height="38">
+                                    <Label Background="#FFFAFAFA" Content="     最大人数" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                    <TextBox x:Name="TextBox_Server_Max" Margin="0,8,10,10" Height="20" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="103" VerticalAlignment="Center" FontSize="10"  />
+                                </Grid>
+
                             </StackPanel>
                         </materialDesign:Card>
                     </Grid>
