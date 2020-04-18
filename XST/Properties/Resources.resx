@@ -143,7 +143,7 @@
     "JavaPath": "",
     "UseDefaultDirectory": "false",
     "DownloadForm": "XINGAPI",
-    "DownloadFilesPath":""
+    "DownloadFilesPath":"","jar":"server.jar"
   },
   "JVM": {
     "Memory": "1024"

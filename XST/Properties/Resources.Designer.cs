@@ -81,7 +81,7 @@ namespace XST.Properties {
         ///    &quot;JavaPath&quot;: &quot;&quot;,
         ///    &quot;UseDefaultDirectory&quot;: &quot;false&quot;,
         ///    &quot;DownloadForm&quot;: &quot;XINGAPI&quot;,
-        ///    &quot;DownloadFilesPath&quot;:&quot;&quot;
+        ///    &quot;DownloadFilesPath&quot;:&quot;&quot;,&quot;jar&quot;:&quot;server.jar&quot;
         ///  },
         ///  &quot;JVM&quot;: {
         ///    &quot;Memory&quot;: &quot;1024&quot;

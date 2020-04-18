@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="XST.exe" size="3977184">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="XST.exe" size="3978720">
       <assemblyIdentity name="XST" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>4upyoCa64UsjZKhH2u1//4kLK5JHnTA9OCNiL7O1h6U=</dsig:DigestValue>
+        <dsig:DigestValue>6xHB/hqvXdVkG28Dl3xSG1aQ/WVR3euOefH9nuBSe4s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -30,7 +30,7 @@
             </GroupBox.Header>
             <Grid Height="399" VerticalAlignment="Top" Width="782" Background="#00000000">
                 <Grid x:Name="Page1" d:IsHidden="True">
-                    <TextBox x:Name="T1" HorizontalAlignment="Left" Height="323" Margin="10,38,0,0" TextWrapping="Wrap" Text="XST开服器&#xA; 一个小白开服器&#xA;By xuan2006 &amp; xingxing520" VerticalAlignment="Top" Width="762" Background="#19FFFFFF" Foreground="White" IsReadOnly="True" VerticalScrollBarVisibility="Auto" FontFamily="Microsoft YaHei UI Light"/>
+                    <TextBox x:Name="T1" HorizontalAlignment="Left" Height="323" Margin="10,38,0,0" TextWrapping="Wrap" Text="XST开服器&#xA; 一个小白开服器&#xA;By xingxing520 &amp; xuan2006" VerticalAlignment="Top" Width="762" Background="#19FFFFFF" Foreground="White" IsReadOnly="True" VerticalScrollBarVisibility="Auto" FontFamily="Microsoft YaHei UI Light"/>
                     <Label Content="控制台" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Microsoft YaHei UI Light"/>
                     <TextBox
   x:Name="T2"
@@ -48,10 +48,10 @@
             ToolTip="Resource name: MaterialDesignRaisedButton" Margin="622,4,88,372" Height="Auto" Click="StopServer" Content="停止" FontSize="12" IsEnabled="False" FontFamily="Microsoft YaHei UI Light"/>
                 </Grid>
                 <Grid x:Name="Page2" d:IsHidden="True">
-                    <Label Content="下载服务端" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Microsoft YaHei UI Light"/>
+                    <Label Content="下载核心" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Microsoft YaHei UI Light"/>
                     <ComboBox x:Name="ComboBox1" HorizontalAlignment="Right" Margin="0,6,306,0" VerticalAlignment="Top" Width="176" Foreground="White" BorderBrush="White" DropDownOpened="ComboBox1_DropDownOpened" DropDownClosed="ComboBox1_DropDownClosed" Background="#0CFFFFFF" FontFamily="Microsoft YaHei UI Light"/>
                     <Label Content="服务端类型" HorizontalAlignment="Right" Margin="0,6,487,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Height="27" FontFamily="Microsoft YaHei UI Light"/>
-                    <Label Content="不知道这些服务端怎么用----&gt;" HorizontalAlignment="Right" Margin="0,4,91,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Height="27" FontFamily="Microsoft YaHei UI Light"/>
+                    <Label Content="不知道这些服务端核心干嘛----&gt;" HorizontalAlignment="Right" Margin="0,4,91,0" VerticalAlignment="Top" Foreground="White" FontSize="14" Height="27" FontFamily="Microsoft YaHei UI Light"/>
                     <ListBox x:Name="List" HorizontalAlignment="Left" Height="347" Margin="10,42,0,0" VerticalAlignment="Top" Width="762" Foreground="White" BorderBrush="Transparent" Background="#19FFFFFF" ContextMenu="{StaticResource ContextMenu}" FontFamily="Microsoft YaHei UI Light"/>
                     <Button Margin="691,4,10,368" Height="Auto" Content="提示" BorderBrush="#7F000000" Background="#FF673AB7" Foreground="White" Click="ServerTip" FontFamily="Microsoft YaHei UI Light"/>
                 </Grid>
@@ -69,16 +69,14 @@
                                 <TreeViewItem Header="帮助" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" />
                             </TreeViewItem>
                         </TreeView>
-                    </Grid>
-                    <Grid HorizontalAlignment="Left" Height="399" Margin="156,0,0,0" VerticalAlignment="Top" Width="626" Background="#00000000">
                         <materialDesign:Card x:Name="SubPage1"
-  Background="{DynamicResource MaterialDesignBackground}" Margin="10" d:IsHidden="True">
+  Background="{DynamicResource MaterialDesignBackground}" Margin="161,20,-611,-0.333">
                             <StackPanel>
                                 <Expander HorizontalAlignment="Stretch" Header="运行路径 (server运行路径)" FontFamily="Microsoft YaHei UI Light">
                                     <Grid Height="70">
                                         <RadioButton x:Name="R2" Content="自定义" Margin="25,38,0,14" Height="17" Checked="R2_Checked" HorizontalAlignment="Left" />
                                         <TextBox x:Name="TextBox_RunPath" Margin="88,35,71,10" Foreground="Black" Height="25" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True"/>
-                                        <RadioButton x:Name="R1" Content="默认 运行目录\server" Margin="25,10,0,43" Height="17" Checked="R1_Checked" HorizontalAlignment="Left" />
+                                        <RadioButton x:Name="R1" Content="默认 运行目录\server" Margin="25,10,0,43" Height="17" Checked="R1_Checked" HorizontalAlignment="Left" Click="R1_Click" />
                                         <Button x:Name="Button_OpenRunPath" Margin="519,30,10,14" Height="Auto" Content="打开" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_OpenRunPath_Click"/>
                                     </Grid>
                                 </Expander>
@@ -108,8 +106,15 @@
       Height="1"
       HorizontalAlignment="Stretch"
       SnapsToDevicePixels="True" />
+                                <Grid Height="38">
+                                    <Label Content="     核心名称" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                    <TextBox x:Name="TextBox_jar" Margin="207,3,0,0" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="332" TextChanged="TextBox_jar_TextChanged"/>
+                                    <Label Content=".jar" Margin="539,8,0,0" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="34"/>
+                                </Grid>
                             </StackPanel>
                         </materialDesign:Card>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Height="399" Margin="156,10,0,-10.333" VerticalAlignment="Top" Width="626" Background="#00000000">
                         <materialDesign:Card x:Name="SubPage2"
   Background="{DynamicResource MaterialDesignBackground}" Margin="10" d:IsHidden="True">
                             <StackPanel>
@@ -168,7 +173,7 @@
                         </materialDesign:Card>
                         <materialDesign:Card x:Name="SubPage4"
 
-  Background="{DynamicResource MaterialDesignBackground}" Margin="10" IsVisibleChanged="SubPage4_IsVisibleChanged">
+  Background="{DynamicResource MaterialDesignBackground}" Margin="10" IsVisibleChanged="SubPage4_IsVisibleChanged" d:IsHidden="True">
                             <StackPanel>
                                 <Border
       Background="{DynamicResource MaterialDesignDivider}"
@@ -224,7 +229,10 @@
                                     <Label Background="#FFFAFAFA" Content="     最大人数" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
                                     <TextBox x:Name="TextBox_Server_Max" Margin="0,8,10,10" Height="20" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="103" VerticalAlignment="Center" FontSize="10"  />
                                 </Grid>
-
+                                <Grid Height="38">
+                                    <Label Background="#FFFAFAFA" Content="     难度" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                    <ComboBox x:Name="ComboBox_Server_difficulty" Margin="495,8,10,10" Height="20" />
+                                </Grid>
                             </StackPanel>
                         </materialDesign:Card>
                     </Grid>

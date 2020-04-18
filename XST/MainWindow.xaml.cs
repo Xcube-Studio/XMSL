@@ -57,6 +57,7 @@ namespace XST
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
+    #region File文件
     public class FileIO
     {
         public static void WriteTXT(string path, string Name, string text)
@@ -85,6 +86,8 @@ namespace XST
             return result;
         }
     }
+    #endregion
+    #region Java操作
     public class Java
     {
         public static string FineJava()
@@ -164,8 +167,9 @@ namespace XST
                 JavaPath = JavaPath2[1];
             return JavaPath;
         }
-    
-}
+        
+    }
+    #endregion
     public partial class MainWindow : Window
     {
         #region MainWindow控件交互
@@ -241,6 +245,9 @@ namespace XST
                 { }
                 else Json.Write("Files", "DownloadFilesPath", LocalPath + "\\Download");
                 TextBox_FilePath.Text = Json.Read("Files", "DownloadFilesPath");
+                string str = Json.Read("Files", "jar");
+                string[] str1 = str.Split('.');
+                TextBox_jar.Text = str1[0];
                 C1.Text = Json.Read("Files", "DownloadForm");
             }
             catch
@@ -447,23 +454,27 @@ namespace XST
         public static Process process;
         private void StartServer(object sender, RoutedEventArgs e)
         {
-            process = new Process();
-            process.StartInfo.WorkingDirectory = Json.Read("Files", "WorkingPath");
-            process.StartInfo.FileName = Json.Read("Files", "JavaPath");
-            process.StartInfo.Arguments = "-Xmx" + Json.Read("JVM", "Memory") + "M" + " -XX:+AggressiveOpts -XX:+UseCompressedOops" + " -jar " + Json.Read("Files", "WorkingPath") + "\\server.jar nogui";
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.RedirectStandardError = true;
-            process.StartInfo.RedirectStandardInput = true;
-            process.EnableRaisingEvents = true;
-            process.Start();
-            T1.Clear();
-            process.BeginErrorReadLine(); process.BeginOutputReadLine();
-            process.OutputDataReceived += Process_OutputDataReceived;
-            process.Exited += new EventHandler(Process_Exited);
-            Start.IsEnabled = false; Stop.IsEnabled = Send.IsEnabled = true;
-            ShowTip("服务器已启动...", 1);
+            try
+            {
+                process = new Process();
+                process.StartInfo.WorkingDirectory = Json.Read("Files", "WorkingPath");
+                process.StartInfo.FileName = Json.Read("Files", "JavaPath");
+                process.StartInfo.Arguments = "-Xmx" + Json.Read("JVM", "Memory") + "M" + " -XX:+AggressiveOpts -XX:+UseCompressedOops" + " -jar " + Json.Read("Files", "WorkingPath") + "\\server.jar nogui";
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.RedirectStandardInput = true;
+                process.EnableRaisingEvents = true;
+                process.Start();
+                T1.Clear();
+                process.BeginErrorReadLine(); process.BeginOutputReadLine();
+                process.OutputDataReceived += Process_OutputDataReceived;
+                process.Exited += new EventHandler(Process_Exited);
+                Start.IsEnabled = false; Stop.IsEnabled = Send.IsEnabled = true;
+                ShowTip("服务器已启动...", 1);
+            }
+            catch { ShowTip("服务器启动失败，请检查设置路径", 3); T1.Text = "XST开服器 \n 一个小白开服器 \n By xingxing520 & xuan2006 \n 服务器启动失败，请检查设置路径"; }
         }
         private void Process_Exited(object sender, EventArgs e)
         {
@@ -485,6 +496,7 @@ namespace XST
         private void StopServer(object sender, RoutedEventArgs e)
         {
             process.StandardInput.WriteLine("stop");
+            T1.Text = "XST开服器 \n 一个小白开服器 \n By xingxing520 & xuan2006 \n 服务器已停止";
         }
         private void SendTo(object sender, RoutedEventArgs e)
         {
@@ -493,6 +505,7 @@ namespace XST
             T2.Clear();
         }
         #endregion
+        #region 下载
         public static string[] GetServerVersions()
         {
             try
@@ -539,6 +552,8 @@ namespace XST
             }
             else return null;
         }
+        #endregion
+
         public static string LocalPath = Directory.GetCurrentDirectory();
         public int CopyFolder(string sourceFolder, string destFolder)
         {
@@ -607,6 +622,17 @@ namespace XST
             {
                 ShowTip("安装失败", 1);
             }
+        }
+
+        private void R1_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Json.Write("Files", "WorkingPath", System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase+"\\server");
+        }
+
+        private void TextBox_jar_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            Json.Write("Files", "jar", TextBox_jar.Text);
         }
     }
 }
