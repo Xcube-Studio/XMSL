@@ -69,8 +69,10 @@
                                 <TreeViewItem Header="帮助" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI Light" />
                             </TreeViewItem>
                         </TreeView>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Height="399" Margin="156,10,0,-10.333" VerticalAlignment="Top" Width="626" Background="#00000000">
                         <materialDesign:Card x:Name="SubPage1"
-  Background="{DynamicResource MaterialDesignBackground}" Margin="161,20,-611,-0.333">
+  Background="{DynamicResource MaterialDesignBackground}" Margin="10">
                             <StackPanel>
                                 <Expander HorizontalAlignment="Stretch" Header="运行路径 (server运行路径)" FontFamily="Microsoft YaHei UI Light">
                                     <Grid Height="70">
@@ -113,8 +115,6 @@
                                 </Grid>
                             </StackPanel>
                         </materialDesign:Card>
-                    </Grid>
-                    <Grid HorizontalAlignment="Left" Height="399" Margin="156,10,0,-10.333" VerticalAlignment="Top" Width="626" Background="#00000000">
                         <materialDesign:Card x:Name="SubPage2"
   Background="{DynamicResource MaterialDesignBackground}" Margin="10" d:IsHidden="True">
                             <StackPanel>
@@ -148,7 +148,7 @@
   Background="{DynamicResource MaterialDesignBackground}" Margin="10" d:IsHidden="True">
                             <StackPanel>
                                 <Grid Height="60">
-                                    <Label Content="XIN Server Tool是一个适合小白、基友的Minecraft 服务器工具。能够使小白腐竹快速开服、下载服务端、&#xD;&#xA;管理以及其他资源。我们希望能得到您对我们开服器的支持" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="586" Height="40"/>
+                                    <Label Content="XIN Server Tool是一个适合小白、基友的Minecraft 服务器工具。能够使小白腐竹快速开服、下载服务端、&#xA;管理以及其他资源。我们希望能得到您对我们开服器的支持" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="586" Height="40"/>
                                 </Grid>
                                 <Border
       Background="{DynamicResource MaterialDesignDivider}"
@@ -162,7 +162,7 @@
                                     <Label Content="鸣谢&#x9;  bangbang93 (BMCLAPI,https://bmclapi2.bangbang93.com)&#xA;&#x9;  Sakura's Mirror (https://mirror.zerodream.net/) &#xA;                XINGAPI&#xA;&#x9;  感谢Sakura's Mirror和BMCLapi的下载源支持，XINGAPI属于优化api并不承担镜像" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Width="586" Height="69" Foreground="#DD000000"/>
                                     <Label Content="引用&#x9;  Newtonsoft.Json  (James Newton-King)&#xA;&#x9;  Costura.Fody  (https://github.com/Fody/Costura/graphs/contributors)&#xA;&#x9;  MaterialDesignColors  (James Willock)&#xA;&#x9;  MaterialDesignThemes.Wpf  (James Willock)" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top" Width="586" Height="70" Foreground="#DD000000"/>
                                     <Label Content="开源&#x9;  https://github.com/xingxing2008/XST" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="586" Foreground="#DD000000"/>
-                                    <Label Content="声明&#x9;  Minecraft 版权归 Mojang AB 所有，使用本软件产生的版权问题，软件制作方概不负责，请支持&#xD;&#xA;&#x9;  正版" HorizontalAlignment="Left" Margin="10,218,0,0" VerticalAlignment="Top" Width="586" Height="39" Foreground="#DD000000"/>
+                                    <Label Content="声明&#x9;  Minecraft 版权归 Mojang AB 所有，使用本软件产生的版权问题，软件制作方概不负责，请支持&#xA;&#x9;  正版" HorizontalAlignment="Left" Margin="10,218,0,0" VerticalAlignment="Top" Width="586" Height="39" Foreground="#DD000000"/>
                                 </Grid>
                                 <Border
       Background="{DynamicResource MaterialDesignDivider}"

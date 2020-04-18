@@ -176,13 +176,7 @@ namespace XST
         public MainWindow()
         {
             InitializeComponent();
-            if(Json.Read("Files", "WorkingPath")==""& Json.Read("Files", "JavaPath") == "")
-            {
-                string a = System.AppDomain.CurrentDomain.BaseDirectory + "\\server\\";
-                string b = Java.FineJava();
-                Json.Write("Files", "WorkingPath", a);
-                Json.Write("Files", "JavaPath", b);
-            }
+            
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -255,6 +249,13 @@ namespace XST
                 ShowTip("未能正确的加载配置文件,请检查配置文件", 2);
             }
             try { Directory.CreateDirectory(LocalPath + "\\server"); } catch { }
+            if (Json.Read("Files", "WorkingPath") == "" & Json.Read("Files", "JavaPath") == "")
+            {
+                string a = System.AppDomain.CurrentDomain.BaseDirectory + "\\server\\";
+                string b = Java.FineJava();
+                Json.Write("Files", "WorkingPath", a);
+                Json.Write("Files", "JavaPath", b);
+            }
         }
         private void ComboBox1_DropDownOpened(object sender, EventArgs e)
         {
@@ -632,7 +633,7 @@ namespace XST
 
         private void TextBox_jar_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            Json.Write("Files", "jar", TextBox_jar.Text);
+            Json.Write("Files", "jar", TextBox_jar.Text+".jar");
         }
     }
 }
