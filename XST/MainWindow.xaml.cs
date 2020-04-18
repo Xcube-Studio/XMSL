@@ -439,6 +439,7 @@ namespace XST
                 TG4.IsChecked = Convert.ToBoolean(FileIO.FindTXT(settings, "enable-command-block"));
                 TextBox_Server_Title.Text = FileIO.FindTXT(settings, "motd");
                 TextBox_Server_Max.Text = FileIO.FindTXT(settings, "max-players");
+                ComboBox_Server_difficulty.Text = FileIO.FindTXT(settings, "difficulty");
             }
             else
             {
@@ -448,6 +449,7 @@ namespace XST
                 FileIO.WriteTXT(settings, "enable-command-block", TG4.IsChecked.ToString().ToLower());
                 FileIO.WriteTXT(settings, "motd", TextBox_Server_Title.Text);
                 FileIO.WriteTXT(settings, "max-players", TextBox_Server_Max.Text);
+                FileIO.WriteTXT(settings, "difficulty", ComboBox_Server_difficulty.Text);
             }
         }
         #endregion
@@ -554,7 +556,6 @@ namespace XST
             else return null;
         }
         #endregion
-
         public static string LocalPath = Directory.GetCurrentDirectory();
         public int CopyFolder(string sourceFolder, string destFolder)
         {
@@ -624,16 +625,14 @@ namespace XST
                 ShowTip("安装失败", 1);
             }
         }
-
         private void R1_Click(object sender, RoutedEventArgs e)
         {
-            
-            Json.Write("Files", "WorkingPath", System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase+"\\server");
+            if (Json.Read("Files", "WorkingPath").Length == 0)
+                Json.Write("Files", "WorkingPath", Directory.GetCurrentDirectory() + "\\server");
         }
-
         private void TextBox_jar_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            Json.Write("Files", "jar", TextBox_jar.Text+".jar");
+            Json.Write("Files", "jar", TextBox_jar.Text + ".jar");
         }
     }
 }

@@ -72,8 +72,8 @@
                     </Grid>
                     <Grid HorizontalAlignment="Left" Height="399" Margin="156,10,0,-10.333" VerticalAlignment="Top" Width="626" Background="#00000000">
                         <materialDesign:Card x:Name="SubPage1"
-  Background="{DynamicResource MaterialDesignBackground}" Margin="10">
-                            <StackPanel d:IsHidden="True">
+  Background="{DynamicResource MaterialDesignBackground}" Margin="10" d:IsHidden="True">
+                            <StackPanel>
                                 <Expander HorizontalAlignment="Stretch" Header="运行路径 (server运行路径)" FontFamily="Microsoft YaHei UI Light">
                                     <Grid Height="70">
                                         <RadioButton x:Name="R2" Content="自定义" Margin="25,38,0,14" Height="17" Checked="R2_Checked" HorizontalAlignment="Left" />
@@ -108,11 +108,17 @@
       Height="1"
       HorizontalAlignment="Stretch"
       SnapsToDevicePixels="True" />
-                                <Grid Height="38">
-                                    <Label Content="     核心名称" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
-                                    <TextBox x:Name="TextBox_jar" Margin="207,3,0,0" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="332" TextChanged="TextBox_jar_TextChanged"/>
-                                    <Label Content=".jar" Margin="539,8,0,0" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="34"/>
+                                <Grid>
+                                    <Label Height="48" Content="     核心名称" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
+                                    <TextBox x:Name="TextBox_jar" Margin="361,13,0,0" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" AcceptsTab="True" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="201" TextChanged="TextBox_jar_TextChanged"/>
+                                    <Label Content=".jar" Margin="562,10,0,0" Foreground="Black" FontFamily="Microsoft YaHei UI Light" RenderTransformOrigin="0,1" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="34" VerticalContentAlignment="Bottom"/>
                                 </Grid>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+
                             </StackPanel>
                         </materialDesign:Card>
                         <materialDesign:Card x:Name="SubPage2"
@@ -218,7 +224,7 @@
       SnapsToDevicePixels="True" />
                                 <Grid Height="38">
                                     <Label Background="#FFFAFAFA" Content="     服务器标题" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
-                                    <TextBox x:Name="TextBox_Server_Title" VerticalAlignment="Center" Margin="0,10,10,8" Height="20" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="422" FontSize="10"  />
+                                    <TextBox x:Name="TextBox_Server_Title" VerticalAlignment="Center" Margin="0,9,10,7" Height="22" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="422" FontSize="10"  />
                                 </Grid>
                                 <Border
       Background="{DynamicResource MaterialDesignDivider}"
@@ -227,12 +233,28 @@
       SnapsToDevicePixels="True" />
                                 <Grid Height="38">
                                     <Label Background="#FFFAFAFA" Content="     最大人数" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
-                                    <TextBox x:Name="TextBox_Server_Max" Margin="0,8,10,10" Height="20" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="103" VerticalAlignment="Center" FontSize="10"  />
+                                    <TextBox x:Name="TextBox_Server_Max" Margin="0,8,10,8" Height="22" RenderTransformOrigin="0,1" FontFamily="Microsoft YaHei UI Light" HorizontalAlignment="Right" Width="103" VerticalAlignment="Center" FontSize="10"  />
                                 </Grid>
-                               <!-- <Grid Height="38">    暂时注释
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+                                <Grid Height="38">
                                     <Label Background="#FFFAFAFA" Content="     难度" Foreground="Black" VerticalContentAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei UI Light"/>
-                                    <ComboBox x:Name="ComboBox_Server_difficulty" Margin="495,8,10,10" Height="20" />
-                                </Grid> -->
+                                    <ComboBox x:Name="ComboBox_Server_difficulty" Margin="495,9,10,7" Height="22" FontSize="10" >
+                                        <System:String>peaceful</System:String>
+                                        <System:String>easy</System:String>
+                                        <System:String>normal</System:String>
+                                        <System:String>hard</System:String>
+                                    </ComboBox>
+                                </Grid>
+                                <Border
+      Background="{DynamicResource MaterialDesignDivider}"
+      Height="1"
+      HorizontalAlignment="Stretch"
+      SnapsToDevicePixels="True" />
+
                             </StackPanel>
                         </materialDesign:Card>
                     </Grid>
