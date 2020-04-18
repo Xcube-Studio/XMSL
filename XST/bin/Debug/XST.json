@@ -5,7 +5,7 @@
     "UseDefaultDirectory": "false",
     "DownloadForm": "XINGAPI",
     "DownloadFilesPath": "C:\\Users\\Xingxing520\\Documents\\程序项目\\Github\\XST\\XST\\XST\\XST\\bin\\Debug\\Download",
-    "jar": "server"
+    "jar": "server.jar"
   },
   "JVM": {
     "Memory": "1024"
